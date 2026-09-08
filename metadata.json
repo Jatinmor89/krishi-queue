@@ -1,0 +1,6 @@
+{
+  "name": "KrishiQueue - Rashtriya Mandi Seva",
+  "description": "Public grain procurement, APMC mandi timed slot booking, live gate pass queue tracking, transporter logistics bidding, and official mandi operations console.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
