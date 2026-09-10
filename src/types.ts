@@ -1,10 +1,19 @@
 export type Language = 'en' | 'pa' | 'hi';
 
-export type AppMode = 
-  | 'farmer-home' 
-  | 'farmer-booking' 
-  | 'farmer-track' 
-  | 'farmer-bookings-list' 
+export type UserRole = 'farmer' | 'driver' | 'inspection-head' | 'mandi-head' | 'admin';
+
+export interface AuthUser {
+  id: string;
+  name: string;
+  phone: string;
+  role: UserRole;
+}
+
+export type AppMode =
+  | 'farmer-home'
+  | 'farmer-booking'
+  | 'farmer-track'
+  | 'farmer-bookings-list'
   | 'farmer-profile'
   | 'logistics-tenders'
   | 'mandi-console';

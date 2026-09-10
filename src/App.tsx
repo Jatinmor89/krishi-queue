@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { AppMode, Language, FarmerProfileData } from './types';
+import { AppMode, AuthUser, Language, FarmerProfileData } from './types';
 import { initialFarmerProfile } from './data/mockData';
 import { NavigationHeader } from './components/NavigationHeader';
+import { Auth } from './components/Auth';
 import { FarmerHome } from './components/FarmerHome';
 import { SlotBookingStep } from './components/SlotBookingStep';
 import { TrackStatus } from './components/TrackStatus';
@@ -10,7 +11,18 @@ import { MandiOfficialConsole } from './components/MandiOfficialConsole';
 import { FarmerBookings } from './components/FarmerBookings';
 import { FarmerProfile } from './components/FarmerProfile';
 
+// Where each role lands right after login. Inspection-head and admin reuse
+// the mandi console for now — dedicated consoles for those roles are next.
+const HOME_MODE_BY_ROLE: Record<AuthUser['role'], AppMode> = {
+  farmer: 'farmer-home',
+  driver: 'logistics-tenders',
+  'inspection-head': 'mandi-console',
+  'mandi-head': 'mandi-console',
+  admin: 'mandi-console',
+};
+
 export default function App() {
+  const [authUser, setAuthUser] = useState<AuthUser | null>(null);
   const [currentMode, setCurrentMode] = useState<AppMode>('farmer-home');
   const [language, setLanguage] = useState<Language>('hi');
   const [farmer, setFarmer] = useState<FarmerProfileData>(initialFarmerProfile);
@@ -21,6 +33,17 @@ export default function App() {
     setTimeout(() => {
       setNotification(null);
     }, 4000);
+  };
+
+  const handleAuthenticated = (user: AuthUser) => {
+    setAuthUser(user);
+    setCurrentMode(HOME_MODE_BY_ROLE[user.role]);
+    showToast(`Welcome, ${user.name}`);
+  };
+
+  const handleLogout = () => {
+    setAuthUser(null);
+    setCurrentMode('farmer-home');
   };
 
   const handleSlotConfirmed = (details: { date: string; timeSlot: string; token: string }) => {
@@ -34,6 +57,10 @@ export default function App() {
     setCurrentMode('farmer-track');
   };
 
+  if (!authUser) {
+    return <Auth onAuthenticated={handleAuthenticated} />;
+  }
+
   return (
     <div className="min-h-screen bg-[#f9f9ff] text-[#111c2d] flex flex-col selection:bg-emerald-200 selection:text-emerald-950 font-sans">
       {/* Universal Fixed Header with Portal Switcher Ribbon */}
@@ -43,6 +70,9 @@ export default function App() {
         language={language}
         onToggleLanguage={(lang) => setLanguage(lang)}
         onOpenProfile={() => setCurrentMode('farmer-profile')}
+        role={authUser.role}
+        userName={authUser.name}
+        onLogout={handleLogout}
       />
 
       {/* Floating System Notification Toast */}
@@ -99,20 +129,20 @@ export default function App() {
           <FarmerProfile
             farmer={farmer}
             language={language}
-            onBackToHome={() => setCurrentMode('farmer-home')}
+            onBackToHome={() => setCurrentMode(HOME_MODE_BY_ROLE[authUser.role])}
             onToggleLanguage={(lang) => setLanguage(lang)}
           />
         )}
 
         {currentMode === 'logistics-tenders' && (
           <LogisticsFleetBidding
-            onBackToHome={() => setCurrentMode('farmer-home')}
+            onBackToHome={() => setCurrentMode(HOME_MODE_BY_ROLE[authUser.role])}
           />
         )}
 
         {currentMode === 'mandi-console' && (
           <MandiOfficialConsole
-            onBackToHome={() => setCurrentMode('farmer-home')}
+            onBackToHome={() => setCurrentMode(HOME_MODE_BY_ROLE[authUser.role])}
           />
         )}
       </main>
