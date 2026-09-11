@@ -1,6 +1,6 @@
 import { FarmerProfileData, DateSlotOption, SlotTimeWave, ProcurementQueueItem, TransitTruck, TenderBidder } from '../types';
 
-export const GOV_EMBLEM_URL = "https://lh3.googleusercontent.com/aida/AEtjO1W5jZxjNtRmaybMf6_zuw7ohx8JKQ-9E_sg1uviXhKIKbXIWJlImAZMIyadR8RUB4UMpCBpmXuIaEKTSj6bcng41JmUATd7LAjhLbs1KChCqLTGYmn63eaAcvChEWxJB70rhQFsMCkqrFWAmghtWFsy_Y_Kad0TBsx0p_iccMei0erj92zGhv_2ex0JO4RF4aCJGDYVU1wP6_SCtYtAw-7kRqyeKWQd_XgM7aOz_GtWmjQXQFvSu4zosp5l";
+export const GOV_EMBLEM_URL = "/emblem.png";
 export const FARMER_PORTRAIT_URL = "https://lh3.googleusercontent.com/aida-public/AB6AXuDBZHkm6TUcpBoiXbteQx2_hTJouO5FYe7QA32UxmhBSG840Ss7i7kfswz4sLOFjxZe2BsZjlTPaQqz0xbJq7LSnzLdsq9fY5tNTHk9sk6f4xtEAVH8kfH9rCGkq_tCwR6O8AhbkcS-p3Fydk_kVRGMp9wQmmUPUWZpIYDV2_sVKdcTmfxYmYHIMCzXx1Z3C0gP4MfFH7BUjBEvrHqF_UROi4Fh1EYCZwu6XHx5VwPMu_nqTHCtRQ2Xuw";
 
 export const initialFarmerProfile: FarmerProfileData = {
