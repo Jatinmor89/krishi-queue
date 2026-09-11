@@ -1,7 +1,7 @@
 import { FarmerProfileData, DateSlotOption, SlotTimeWave, ProcurementQueueItem, TransitTruck, TenderBidder } from '../types';
 
 export const GOV_EMBLEM_URL = "/emblem.png";
-export const FARMER_PORTRAIT_URL = "https://lh3.googleusercontent.com/aida-public/AB6AXuDBZHkm6TUcpBoiXbteQx2_hTJouO5FYe7QA32UxmhBSG840Ss7i7kfswz4sLOFjxZe2BsZjlTPaQqz0xbJq7LSnzLdsq9fY5tNTHk9sk6f4xtEAVH8kfH9rCGkq_tCwR6O8AhbkcS-p3Fydk_kVRGMp9wQmmUPUWZpIYDV2_sVKdcTmfxYmYHIMCzXx1Z3C0gP4MfFH7BUjBEvrHqF_UROi4Fh1EYCZwu6XHx5VwPMu_nqTHCtRQ2Xuw";
+export const FARMER_PORTRAIT_URL = "/farmer_portrait.png";
 
 export const initialFarmerProfile: FarmerProfileData = {
   id: "PB-2024-KRN-8841",
