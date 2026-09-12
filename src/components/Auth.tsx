@@ -91,24 +91,26 @@ const verifyOtpAndContinue = async () => {
   });
 };
 
-  const submitPasswordLogin = () => {
-    if (phone.replace(/\D/g, '').length !== 10) return setError(t('auth.errors.valid_mobile'));
-    if (password.length < 4) return setError(t('auth.errors.password_min'));
-    if (tab === 'signup' && name.trim().length < 2) return setError(t('auth.errors.enter_full_name'));
-    if (tab === 'signup' && idField.trim().length < 2) return setError(t('auth.errors.enter_id_field', { idLabel: idLabel.toLowerCase() }));
-    setError('');
-    onAuthenticated({
-      id: 'u_' + Date.now(),
-      name: tab === 'signup' ? name.trim() : DEMO_NAMES[role],
-      phone,
-      role,
-    });
-  };
+const submitPasswordLogin = async () => {
+  if (phone.replace(/\D/g, '').length !== 10) return setError(t('auth.errors.valid_mobile'));
+  if (password.length < 4) return setError(t('auth.errors.password_min'));
+  if (tab === 'signup' && name.trim().length < 2) return setError(t('auth.errors.enter_full_name'));
+  if (tab === 'signup' && idField.trim().length < 2) return setError(t('auth.errors.enter_id_field', { idLabel: idLabel.toLowerCase() }));
+  setError('');
+  const finalName = tab === 'signup' ? name.trim() : DEMO_NAMES[role];
+  await saveUserProfile({ name: finalName, phone, role });
+  onAuthenticated({
+    id: 'u_' + Date.now(),
+    name: finalName,
+    phone,
+    role,
+  });
+};
 
-  const quickDemoLogin = (r: UserRole) => {
-    onAuthenticated({ id: 'demo_' + r, name: DEMO_NAMES[r], phone: '9876543210', role: r });
-  };
-
+ const quickDemoLogin = async (r: UserRole) => {
+  await saveUserProfile({ name: DEMO_NAMES[r], phone: '9876543210', role: r });
+  onAuthenticated({ id: 'demo_' + r, name: DEMO_NAMES[r], phone: '9876543210', role: r });
+};
   return (
     <div className="min-h-screen bg-surface flex flex-col items-center justify-center px-4 py-10 font-sans">
       <div className="w-full max-w-md">
