@@ -1,0 +1,58 @@
+{
+  "portal_views": "PORTAL VIEWS:",
+  "nav": {
+    "farmer_view": "Farmer View",
+    "book_slot": "Book Slot",
+    "track_pass": "Track Pass",
+    "logistics_bidding": "Logistics Bidding",
+    "mandi_console": "Mandi Console"
+  },
+  "nic_mandi_cloud": "NIC Mandi Cloud",
+  "subtitle": "Krishi Qatar",
+  "region": {
+    "admin_portal": "Admin Portal",
+    "fleet_desk": "Fleet Desk",
+    "default": "Punjab/Haryana APMC"
+  },
+  "language_names": {
+    "en": "English",
+    "hi": "हिन्दी",
+    "pa": "ਪੰਜਾਬੀ"
+  },
+  "profile_title": "Farmer / Officer Profile",
+  "auth": {
+    "tagline": "Krishi Qatar · Mandi Logistics Platform",
+    "login": "Log in",
+    "signup": "Sign up",
+    "i_am_a": "I am a",
+    "otp_role_message": "This role signs in with a one-time OTP",
+    "password_role_message": "This role signs in with an employee password",
+    "full_name": "Full name",
+    "enter_full_name": "Enter your full name",
+    "mobile_number": "Mobile number",
+    "send_otp": "Send OTP",
+    "enter_otp_sent_to": "Enter OTP sent to {{phone}}",
+    "verify_continue": "Verify & continue",
+    "change_number": "Change number",
+    "password": "Password",
+    "create_account": "Create account",
+    "official_approval_note": "Official accounts are approved by an admin before first login.",
+    "demo_jump_in": "Demo: jump straight in as",
+    "vehicle_reg_number": "Vehicle registration number",
+    "employee_officer_id": "Employee / officer ID",
+    "errors": {
+      "valid_mobile": "Enter a valid 10-digit mobile number",
+      "enter_otp": "Enter the 4-digit OTP",
+      "enter_full_name": "Enter your full name",
+      "password_min": "Password must be at least 4 characters",
+      "enter_id_field": "Enter your {{idLabel}}"
+    }
+  },
+  "roles": {
+    "farmer": { "label": "Farmer", "hint": "Book slots, track your pass" },
+    "driver": { "label": "Transporter", "hint": "Bid on lifting jobs" },
+    "inspection-head": { "label": "Inspection Head", "hint": "Quality gate checks" },
+    "mandi-head": { "label": "Mandi Head", "hint": "Run one mandi" },
+    "admin": { "label": "Admin", "hint": "Full system access" }
+  }
+}

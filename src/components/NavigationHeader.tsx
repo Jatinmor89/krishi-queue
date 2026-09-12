@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Language, AppMode } from '../types';
 import { GOV_EMBLEM_URL } from '../data/mockData';
 
@@ -17,8 +18,11 @@ export const NavigationHeader: React.FC<NavigationHeaderProps> = ({
   onToggleLanguage,
   onOpenProfile
 }) => {
-  // Translate title snippet based on active language
-  const subTitle = language === 'hi' ? 'कृषि कतार' : language === 'pa' ? 'ਕ੍ਰਿਸ਼ੀ ਕਤਾਰ' : 'कृषि कतार';
+  const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+    i18n.changeLanguage(language);
+  }, [language, i18n]);
 
   return (
     <div className="fixed top-0 left-0 right-0 w-full z-50 flex flex-col">
@@ -27,7 +31,7 @@ export const NavigationHeader: React.FC<NavigationHeaderProps> = ({
         <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-0.5">
           <span className="text-emerald-400 font-bold uppercase text-[10px] tracking-wider shrink-0 mr-1 flex items-center gap-1">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            PORTAL VIEWS:
+            {t('portal_views')}
           </span>
           <button
             onClick={() => onSelectMode('farmer-home')}
@@ -38,7 +42,7 @@ export const NavigationHeader: React.FC<NavigationHeaderProps> = ({
             }`}
           >
             <span className="material-symbols-outlined text-[14px]">agriculture</span>
-            Farmer View
+            {t('nav.farmer_view')}
           </button>
           <button
             onClick={() => onSelectMode('farmer-booking')}
@@ -49,7 +53,7 @@ export const NavigationHeader: React.FC<NavigationHeaderProps> = ({
             }`}
           >
             <span className="material-symbols-outlined text-[14px]">calendar_month</span>
-            Book Slot
+            {t('nav.book_slot')}
           </button>
           <button
             onClick={() => onSelectMode('farmer-track')}
@@ -60,7 +64,7 @@ export const NavigationHeader: React.FC<NavigationHeaderProps> = ({
             }`}
           >
             <span className="material-symbols-outlined text-[14px]">local_shipping</span>
-            Track Pass
+            {t('nav.track_pass')}
           </button>
           <button
             onClick={() => onSelectMode('logistics-tenders')}
@@ -71,7 +75,7 @@ export const NavigationHeader: React.FC<NavigationHeaderProps> = ({
             }`}
           >
             <span className="material-symbols-outlined text-[14px]">gavel</span>
-            Logistics Bidding
+            {t('nav.logistics_bidding')}
           </button>
           <button
             onClick={() => onSelectMode('mandi-console')}
@@ -82,12 +86,12 @@ export const NavigationHeader: React.FC<NavigationHeaderProps> = ({
             }`}
           >
             <span className="material-symbols-outlined text-[14px]">admin_panel_settings</span>
-            Mandi Console
+            {t('nav.mandi_console')}
           </button>
         </div>
 
         <div className="hidden sm:flex items-center gap-2 shrink-0">
-          <span className="text-[11px] text-slate-400">NIC Mandi Cloud</span>
+          <span className="text-[11px] text-slate-400">{t('nic_mandi_cloud')}</span>
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
         </div>
       </div>
@@ -111,19 +115,19 @@ export const NavigationHeader: React.FC<NavigationHeaderProps> = ({
                 </span>
                 <span className="text-outline text-sm">/</span>
                 <span className="font-medium text-[14px] md:text-[15px] text-primary truncate">
-                  {subTitle}
+                  {t('subtitle')}
                 </span>
               </div>
-              <div className="flex items-center gap-2 mt-1">
-                <a
-                  href="tel:18001801551"
-                  className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-secondary/10 text-secondary font-bold text-[10px] leading-tight shrink-0 hover:bg-secondary/20 transition-colors"
-                >
+             <div className="flex items-center gap-2 mt-1">
+  
+               <a href="tel:18001801551"
+                 className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-secondary/10 text-secondary font-bold text-[10px] leading-tight shrink-0 hover:bg-secondary/20 transition-colors"
+                 >
                   <span className="material-symbols-outlined text-[12px]">call</span>
                   1800-180-1551
                 </a>
                 <span className="text-outline text-[11px] hidden xs:inline truncate font-medium">
-                  • {currentMode === 'mandi-console' ? 'Admin Portal' : currentMode === 'logistics-tenders' ? 'Fleet Desk' : 'Punjab/Haryana APMC'}
+                  • {currentMode === 'mandi-console' ? t('region.admin_portal') : currentMode === 'logistics-tenders' ? t('region.fleet_desk') : t('region.default')}
                 </span>
               </div>
             </div>
@@ -139,26 +143,26 @@ export const NavigationHeader: React.FC<NavigationHeaderProps> = ({
               className="h-8 px-2.5 rounded-full bg-surface-container hover:bg-surface-container-high flex items-center gap-1 text-on-surface-variant hover:text-on-surface text-xs font-semibold shadow-2xs transition-colors"
             >
               <span className="material-symbols-outlined text-[16px] text-primary">translate</span>
-              <span className="uppercase">{language === 'en' ? 'English' : language === 'pa' ? 'ਪੰਜਾਬੀ' : 'हिन्दी'}</span>
+              <span className="uppercase">{t(`language_names.${language}`)}</span>
             </button>
             <div className="absolute right-0 top-full mt-1 hidden group-hover:flex flex-col bg-surface-container-lowest rounded-xl shadow-lg border border-outline-variant/40 py-1 min-w-[100px] z-50">
               <button
                 onClick={() => onToggleLanguage('en')}
                 className={`px-3 py-1.5 text-left text-xs font-medium hover:bg-surface-container-low transition-colors ${language === 'en' ? 'text-primary font-bold' : 'text-on-surface'}`}
               >
-                English
+                {t('language_names.en')}
               </button>
               <button
                 onClick={() => onToggleLanguage('hi')}
                 className={`px-3 py-1.5 text-left text-xs font-medium hover:bg-surface-container-low transition-colors ${language === 'hi' ? 'text-primary font-bold' : 'text-on-surface'}`}
               >
-                हिन्दी
+                {t('language_names.hi')}
               </button>
               <button
                 onClick={() => onToggleLanguage('pa')}
                 className={`px-3 py-1.5 text-left text-xs font-medium hover:bg-surface-container-low transition-colors ${language === 'pa' ? 'text-primary font-bold' : 'text-on-surface'}`}
               >
-                ਪੰਜਾਬੀ
+                {t('language_names.pa')}
               </button>
             </div>
           </div>
@@ -166,7 +170,7 @@ export const NavigationHeader: React.FC<NavigationHeaderProps> = ({
           {/* Profile Circle */}
           <button
             onClick={onOpenProfile}
-            title="Farmer / Officer Profile"
+            title={t('profile_title')}
             className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary hover:ring-2 hover:ring-primary-fixed shrink-0 shadow-xs transition-all active:scale-95"
           >
             <span className="material-symbols-outlined text-[18px]">person</span>

@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { AuthUser, UserRole } from '../types';
 import { GOV_EMBLEM_URL } from '../data/mockData';
+   import { saveUserProfile } from '../lib/profile';
 
 interface AuthProps {
   onAuthenticated: (user: AuthUser) => void;
 }
 
-const ROLES: { id: UserRole; label: string; icon: string; hint: string }[] = [
-  { id: 'farmer', label: 'Farmer', icon: 'agriculture', hint: 'Book slots, track your pass' },
-  { id: 'driver', label: 'Transporter', icon: 'local_shipping', hint: 'Bid on lifting jobs' },
-  { id: 'inspection-head', label: 'Inspection Head', icon: 'fact_check', hint: 'Quality gate checks' },
-  { id: 'mandi-head', label: 'Mandi Head', icon: 'storefront', hint: 'Run one mandi' },
-  { id: 'admin', label: 'Admin', icon: 'admin_panel_settings', hint: 'Full system access' },
-];
+const ROLE_IDS: UserRole[] = ['farmer', 'driver', 'inspection-head', 'mandi-head', 'admin'];
+
+const ROLE_ICONS: Record<UserRole, string> = {
+  farmer: 'agriculture',
+  driver: 'local_shipping',
+  'inspection-head': 'fact_check',
+  'mandi-head': 'storefront',
+  admin: 'admin_panel_settings',
+};
 
 const DEMO_NAMES: Record<UserRole, string> = {
   farmer: 'Ramesh Kumar',
@@ -22,28 +26,24 @@ const DEMO_NAMES: Record<UserRole, string> = {
   admin: 'System Admin',
 };
 
-// OTP-based login for citizen-facing roles; password login for official roles
-// that carry procurement/audit responsibility.
 const isOtpRole = (role: UserRole) => role === 'farmer' || role === 'driver';
 
 export const Auth: React.FC<AuthProps> = ({ onAuthenticated }) => {
+  const { t } = useTranslation();
   const [tab, setTab] = useState<'login' | 'signup'>('login');
   const [role, setRole] = useState<UserRole>('farmer');
 
-  // Shared
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [error, setError] = useState('');
 
-  // OTP flow (farmer / driver)
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState('');
 
-  // Password flow (official roles)
   const [password, setPassword] = useState('');
-  const [idField, setIdField] = useState(''); // vehicle no / employee id
+  const [idField, setIdField] = useState('');
 
-  const idLabel = role === 'driver' ? 'Vehicle registration number' : 'Employee / officer ID';
+  const idLabel = role === 'driver' ? t('auth.vehicle_reg_number') : t('auth.employee_officer_id');
 
   const resetFlow = () => {
     setError('');
@@ -57,43 +57,45 @@ export const Auth: React.FC<AuthProps> = ({ onAuthenticated }) => {
     resetFlow();
   };
 
-  const switchTab = (t: 'login' | 'signup') => {
-    setTab(t);
+  const switchTab = (tb: 'login' | 'signup') => {
+    setTab(tb);
     resetFlow();
   };
 
   const sendOtp = () => {
     if (phone.replace(/\D/g, '').length !== 10) {
-      setError('Enter a valid 10-digit mobile number');
+      setError(t('auth.errors.valid_mobile'));
       return;
     }
     setError('');
     setOtpSent(true);
   };
 
-  const verifyOtpAndContinue = () => {
-    if (otp.length !== 4) {
-      setError('Enter the 4-digit OTP');
-      return;
-    }
-    if (tab === 'signup' && name.trim().length < 2) {
-      setError('Enter your full name');
-      return;
-    }
-    setError('');
-    onAuthenticated({
-      id: 'u_' + Date.now(),
-      name: tab === 'signup' ? name.trim() : DEMO_NAMES[role],
-      phone,
-      role,
-    });
-  };
+const verifyOtpAndContinue = async () => {
+  if (otp.length !== 4) {
+    setError(t('auth.errors.enter_otp'));
+    return;
+  }
+  if (tab === 'signup' && name.trim().length < 2) {
+    setError(t('auth.errors.enter_full_name'));
+    return;
+  }
+  setError('');
+  const finalName = tab === 'signup' ? name.trim() : DEMO_NAMES[role];
+  await saveUserProfile({ name: finalName, phone, role });
+  onAuthenticated({
+    id: 'u_' + Date.now(),
+    name: finalName,
+    phone,
+    role,
+  });
+};
 
   const submitPasswordLogin = () => {
-    if (phone.replace(/\D/g, '').length !== 10) return setError('Enter a valid 10-digit mobile number');
-    if (password.length < 4) return setError('Password must be at least 4 characters');
-    if (tab === 'signup' && name.trim().length < 2) return setError('Enter your full name');
-    if (tab === 'signup' && idField.trim().length < 2) return setError(`Enter your ${idLabel.toLowerCase()}`);
+    if (phone.replace(/\D/g, '').length !== 10) return setError(t('auth.errors.valid_mobile'));
+    if (password.length < 4) return setError(t('auth.errors.password_min'));
+    if (tab === 'signup' && name.trim().length < 2) return setError(t('auth.errors.enter_full_name'));
+    if (tab === 'signup' && idField.trim().length < 2) return setError(t('auth.errors.enter_id_field', { idLabel: idLabel.toLowerCase() }));
     setError('');
     onAuthenticated({
       id: 'u_' + Date.now(),
@@ -114,7 +116,7 @@ export const Auth: React.FC<AuthProps> = ({ onAuthenticated }) => {
           <img src={GOV_EMBLEM_URL} alt="KrishiQueue Government Emblem" className="h-10 w-auto" />
           <div className="flex flex-col leading-tight">
             <span className="font-bold text-[19px] text-primary-container">KrishiQueue</span>
-            <span className="text-[12px] text-on-surface-variant">कृषि कतार · Mandi Logistics Platform</span>
+            <span className="text-[12px] text-on-surface-variant">{t('auth.tagline')}</span>
           </div>
         </div>
 
@@ -126,7 +128,7 @@ export const Auth: React.FC<AuthProps> = ({ onAuthenticated }) => {
                 tab === 'login' ? 'bg-primary text-on-primary shadow-xs' : 'text-on-surface-variant'
               }`}
             >
-              Log in
+              {t('auth.login')}
             </button>
             <button
               onClick={() => switchTab('signup')}
@@ -134,29 +136,29 @@ export const Auth: React.FC<AuthProps> = ({ onAuthenticated }) => {
                 tab === 'signup' ? 'bg-primary text-on-primary shadow-xs' : 'text-on-surface-variant'
               }`}
             >
-              Sign up
+              {t('auth.signup')}
             </button>
           </div>
 
           <div className="mb-4">
-            <div className="text-[11px] font-semibold text-on-surface-variant uppercase tracking-wide mb-2">I am a</div>
+            <div className="text-[11px] font-semibold text-on-surface-variant uppercase tracking-wide mb-2">{t('auth.i_am_a')}</div>
             <div className="grid grid-cols-3 gap-2">
-              {ROLES.map((r) => (
+              {ROLE_IDS.map((rId) => (
                 <button
-                  key={r.id}
-                  onClick={() => selectRole(r.id)}
+                  key={rId}
+                  onClick={() => selectRole(rId)}
                   className={`flex flex-col items-center gap-1 rounded-xl border px-2 py-2.5 text-center transition-colors ${
-                    role === r.id
+                    role === rId
                       ? 'border-primary bg-primary-fixed/40 text-primary-container'
                       : 'border-outline-variant/50 text-on-surface-variant hover:bg-surface-container'
                   }`}
                 >
-                  <span className="material-symbols-outlined text-[20px]">{r.icon}</span>
-                  <span className="text-[10.5px] font-semibold leading-tight">{r.label}</span>
+                  <span className="material-symbols-outlined text-[20px]">{ROLE_ICONS[rId]}</span>
+                  <span className="text-[10.5px] font-semibold leading-tight">{t(`roles.${rId}.label`)}</span>
                 </button>
               ))}
             </div>
-            <div className="text-[11px] text-on-surface-variant mt-2">{ROLES.find((r) => r.id === role)?.hint}</div>
+            <div className="text-[11px] text-on-surface-variant mt-2">{t(`roles.${role}.hint`)}</div>
           </div>
 
           <div className="flex items-center gap-1.5 mb-4 bg-surface-container rounded-lg px-2.5 py-1.5">
@@ -164,24 +166,24 @@ export const Auth: React.FC<AuthProps> = ({ onAuthenticated }) => {
               {isOtpRole(role) ? 'sms' : 'lock'}
             </span>
             <span className="text-[11px] text-on-surface-variant">
-              {isOtpRole(role) ? 'This role signs in with a one-time OTP' : 'This role signs in with an employee password'}
+              {isOtpRole(role) ? t('auth.otp_role_message') : t('auth.password_role_message')}
             </span>
           </div>
 
           {tab === 'signup' && (
             <div className="mb-3">
-              <label className="text-[11px] font-semibold text-on-surface-variant mb-1 block">Full name</label>
+              <label className="text-[11px] font-semibold text-on-surface-variant mb-1 block">{t('auth.full_name')}</label>
               <input
                 value={name}
                 onChange={(e) => { setName(e.target.value); setError(''); }}
-                placeholder="Enter your full name"
+                placeholder={t('auth.enter_full_name')}
                 className="w-full bg-surface-container-low rounded-lg px-3 py-2.5 text-[13px] outline-none border border-transparent focus:border-primary"
               />
             </div>
           )}
 
           <div className="mb-3">
-            <label className="text-[11px] font-semibold text-on-surface-variant mb-1 block">Mobile number</label>
+            <label className="text-[11px] font-semibold text-on-surface-variant mb-1 block">{t('auth.mobile_number')}</label>
             <div className="flex items-center bg-surface-container-low rounded-lg px-3 py-2.5 border border-transparent focus-within:border-primary">
               <span className="material-symbols-outlined text-[16px] text-on-surface-variant mr-1.5">call</span>
               <input
@@ -201,13 +203,13 @@ export const Auth: React.FC<AuthProps> = ({ onAuthenticated }) => {
                   onClick={sendOtp}
                   className="w-full bg-primary text-on-primary font-semibold text-[13px] rounded-xl py-3 shadow-xs active:scale-[0.99] transition-transform"
                 >
-                  Send OTP
+                  {t('auth.send_otp')}
                 </button>
               ) : (
                 <>
                   <div className="mb-2">
                     <label className="text-[11px] font-semibold text-on-surface-variant mb-1 block">
-                      Enter OTP sent to {phone}
+                      {t('auth.enter_otp_sent_to', { phone })}
                     </label>
                     <div className="flex items-center bg-surface-container-low rounded-lg px-3 py-2.5 border border-transparent focus-within:border-primary">
                       <span className="material-symbols-outlined text-[16px] text-on-surface-variant mr-1.5">password</span>
@@ -229,13 +231,13 @@ export const Auth: React.FC<AuthProps> = ({ onAuthenticated }) => {
                     onClick={verifyOtpAndContinue}
                     className="w-full bg-primary text-on-primary font-semibold text-[13px] rounded-xl py-3 shadow-xs active:scale-[0.99] transition-transform"
                   >
-                    Verify &amp; continue
+                    {t('auth.verify_continue')}
                   </button>
                   <button
                     onClick={() => { setOtpSent(false); setOtp(''); setError(''); }}
                     className="w-full text-[11px] text-on-surface-variant mt-2"
                   >
-                    Change number
+                    {t('auth.change_number')}
                   </button>
                 </>
               )}
@@ -261,7 +263,7 @@ export const Auth: React.FC<AuthProps> = ({ onAuthenticated }) => {
               )}
 
               <div className="mb-2">
-                <label className="text-[11px] font-semibold text-on-surface-variant mb-1 block">Password</label>
+                <label className="text-[11px] font-semibold text-on-surface-variant mb-1 block">{t('auth.password')}</label>
                 <div className="flex items-center bg-surface-container-low rounded-lg px-3 py-2.5 border border-transparent focus-within:border-primary">
                   <span className="material-symbols-outlined text-[16px] text-on-surface-variant mr-1.5">lock</span>
                   <input
@@ -285,12 +287,12 @@ export const Auth: React.FC<AuthProps> = ({ onAuthenticated }) => {
                 onClick={submitPasswordLogin}
                 className="w-full bg-primary text-on-primary font-semibold text-[13px] rounded-xl py-3 shadow-xs active:scale-[0.99] transition-transform"
               >
-                {tab === 'login' ? 'Log in' : 'Create account'}
+                {tab === 'login' ? t('auth.login') : t('auth.create_account')}
               </button>
 
               {tab === 'signup' && (
                 <div className="text-[11px] text-on-surface-variant mt-2 text-center">
-                  Official accounts are approved by an admin before first login.
+                  {t('auth.official_approval_note')}
                 </div>
               )}
             </>
@@ -299,17 +301,17 @@ export const Auth: React.FC<AuthProps> = ({ onAuthenticated }) => {
 
         <div className="mt-5 border-t border-outline-variant/40 pt-4">
           <div className="text-[11px] font-semibold text-on-surface-variant uppercase tracking-wide mb-2 text-center">
-            Demo: jump straight in as
+            {t('auth.demo_jump_in')}
           </div>
           <div className="flex flex-wrap justify-center gap-1.5">
-            {ROLES.map((r) => (
+            {ROLE_IDS.map((rId) => (
               <button
-                key={r.id}
-                onClick={() => quickDemoLogin(r.id)}
+                key={rId}
+                onClick={() => quickDemoLogin(rId)}
                 className="flex items-center gap-1 bg-surface-container rounded-full px-2.5 py-1.5 text-[11px] font-medium text-on-surface hover:bg-surface-container-high"
               >
-                <span className="material-symbols-outlined text-[13px]">{r.icon}</span>
-                {r.label}
+                <span className="material-symbols-outlined text-[13px]">{ROLE_ICONS[rId]}</span>
+                {t(`roles.${rId}.label`)}
               </button>
             ))}
           </div>

@@ -1,0 +1,58 @@
+{
+  "portal_views": "ਪੋਰਟਲ ਦ੍ਰਿਸ਼:",
+  "nav": {
+    "farmer_view": "ਕਿਸਾਨ ਦ੍ਰਿਸ਼",
+    "book_slot": "ਸਲਾਟ ਬੁੱਕ ਕਰੋ",
+    "track_pass": "ਪਾਸ ਟਰੈਕ ਕਰੋ",
+    "logistics_bidding": "ਲੌਜਿਸਟਿਕਸ ਬੋਲੀ",
+    "mandi_console": "ਮੰਡੀ ਕੰਸੋਲ"
+  },
+  "nic_mandi_cloud": "ਐਨਆਈਸੀ ਮੰਡੀ ਕਲਾਉਡ",
+  "subtitle": "ਕ੍ਰਿਸ਼ੀ ਕਤਾਰ",
+  "region": {
+    "admin_portal": "ਐਡਮਿਨ ਪੋਰਟਲ",
+    "fleet_desk": "ਫਲੀਟ ਡੈਸਕ",
+    "default": "ਪੰਜਾਬ/ਹਰਿਆਣਾ ਏਪੀਐਮਸੀ"
+  },
+  "language_names": {
+    "en": "English",
+    "hi": "ਹਿੰਦੀ",
+    "pa": "ਪੰਜਾਬੀ"
+  },
+  "profile_title": "ਕਿਸਾਨ / ਅਧਿਕਾਰੀ ਪ੍ਰੋਫਾਈਲ",
+  "auth": {
+    "tagline": "ਕ੍ਰਿਸ਼ੀ ਕਤਾਰ · ਮੰਡੀ ਲੌਜਿਸਟਿਕਸ ਪਲੇਟਫਾਰਮ",
+    "login": "ਲੌਗ ਇਨ",
+    "signup": "ਸਾਈਨ ਅੱਪ",
+    "i_am_a": "ਮੈਂ ਹਾਂ",
+    "otp_role_message": "ਇਹ ਭੂਮਿਕਾ ਇੱਕ-ਵਾਰ OTP ਨਾਲ ਸਾਈਨ ਇਨ ਕਰਦੀ ਹੈ",
+    "password_role_message": "ਇਹ ਭੂਮਿਕਾ ਕਰਮਚਾਰੀ ਪਾਸਵਰਡ ਨਾਲ ਸਾਈਨ ਇਨ ਕਰਦੀ ਹੈ",
+    "full_name": "ਪੂਰਾ ਨਾਮ",
+    "enter_full_name": "ਆਪਣਾ ਪੂਰਾ ਨਾਮ ਦਰਜ ਕਰੋ",
+    "mobile_number": "ਮੋਬਾਈਲ ਨੰਬਰ",
+    "send_otp": "OTP ਭੇਜੋ",
+    "enter_otp_sent_to": "{{phone}} 'ਤੇ ਭੇਜਿਆ OTP ਦਰਜ ਕਰੋ",
+    "verify_continue": "ਪੁਸ਼ਟੀ ਕਰੋ ਅਤੇ ਜਾਰੀ ਰੱਖੋ",
+    "change_number": "ਨੰਬਰ ਬਦਲੋ",
+    "password": "ਪਾਸਵਰਡ",
+    "create_account": "ਖਾਤਾ ਬਣਾਓ",
+    "official_approval_note": "ਅਧਿਕਾਰਤ ਖਾਤਿਆਂ ਨੂੰ ਪਹਿਲੀ ਲੌਗਇਨ ਤੋਂ ਪਹਿਲਾਂ ਇੱਕ ਐਡਮਿਨ ਦੁਆਰਾ ਮਨਜ਼ੂਰ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।",
+    "demo_jump_in": "ਡੈਮੋ: ਸਿੱਧਾ ਇਸ ਰੂਪ ਵਿੱਚ ਦਾਖਲ ਹੋਵੋ",
+    "vehicle_reg_number": "ਵਾਹਨ ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਨੰਬਰ",
+    "employee_officer_id": "ਕਰਮਚਾਰੀ / ਅਧਿਕਾਰੀ ਆਈਡੀ",
+    "errors": {
+      "valid_mobile": "ਇੱਕ ਸਹੀ 10-ਅੰਕਾਂ ਵਾਲਾ ਮੋਬਾਈਲ ਨੰਬਰ ਦਰਜ ਕਰੋ",
+      "enter_otp": "4-ਅੰਕਾਂ ਵਾਲਾ OTP ਦਰਜ ਕਰੋ",
+      "enter_full_name": "ਆਪਣਾ ਪੂਰਾ ਨਾਮ ਦਰਜ ਕਰੋ",
+      "password_min": "ਪਾਸਵਰਡ ਘੱਟੋ-ਘੱਟ 4 ਅੱਖਰਾਂ ਦਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ",
+      "enter_id_field": "ਆਪਣਾ {{idLabel}} ਦਰਜ ਕਰੋ"
+    }
+  },
+  "roles": {
+    "farmer": { "label": "ਕਿਸਾਨ", "hint": "ਸਲਾਟ ਬੁੱਕ ਕਰੋ, ਆਪਣਾ ਪਾਸ ਟਰੈਕ ਕਰੋ" },
+    "driver": { "label": "ਟਰਾਂਸਪੋਰਟਰ", "hint": "ਲਿਫਟਿੰਗ ਕੰਮਾਂ 'ਤੇ ਬੋਲੀ ਲਗਾਓ" },
+    "inspection-head": { "label": "ਨਿਰੀਖਣ ਮੁਖੀ", "hint": "ਕੁਆਲਿਟੀ ਗੇਟ ਜਾਂਚ" },
+    "mandi-head": { "label": "ਮੰਡੀ ਮੁਖੀ", "hint": "ਇੱਕ ਮੰਡੀ ਚਲਾਓ" },
+    "admin": { "label": "ਐਡਮਿਨ", "hint": "ਪੂਰੀ ਸਿਸਟਮ ਪਹੁੰਚ" }
+  }
+}

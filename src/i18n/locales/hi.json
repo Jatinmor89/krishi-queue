@@ -1,0 +1,58 @@
+{
+  "portal_views": "पोर्टल दृश्य:",
+  "nav": {
+    "farmer_view": "किसान दृश्य",
+    "book_slot": "स्लॉट बुक करें",
+    "track_pass": "पास ट्रैक करें",
+    "logistics_bidding": "लॉजिस्टिक्स बोली",
+    "mandi_console": "मंडी कंसोल"
+  },
+  "nic_mandi_cloud": "एनआईसी मंडी क्लाउड",
+  "subtitle": "कृषि कतार",
+  "region": {
+    "admin_portal": "एडमिन पोर्टल",
+    "fleet_desk": "फ्लीट डेस्क",
+    "default": "पंजाब/हरियाणा एपीएमसी"
+  },
+  "language_names": {
+    "en": "English",
+    "hi": "हिन्दी",
+    "pa": "ਪੰਜਾਬੀ"
+  },
+  "profile_title": "किसान / अधिकारी प्रोफ़ाइल",
+  "auth": {
+    "tagline": "कृषि कतार · मंडी लॉजिस्टिक्स प्लेटफ़ॉर्म",
+    "login": "लॉग इन",
+    "signup": "साइन अप",
+    "i_am_a": "मैं हूँ",
+    "otp_role_message": "यह भूमिका एक बार के OTP से साइन इन करती है",
+    "password_role_message": "यह भूमिका कर्मचारी पासवर्ड से साइन इन करती है",
+    "full_name": "पूरा नाम",
+    "enter_full_name": "अपना पूरा नाम दर्ज करें",
+    "mobile_number": "मोबाइल नंबर",
+    "send_otp": "OTP भेजें",
+    "enter_otp_sent_to": "{{phone}} पर भेजा गया OTP दर्ज करें",
+    "verify_continue": "सत्यापित करें और जारी रखें",
+    "change_number": "नंबर बदलें",
+    "password": "पासवर्ड",
+    "create_account": "खाता बनाएं",
+    "official_approval_note": "आधिकारिक खातों को पहले लॉगिन से पहले एक एडमिन द्वारा स्वीकृत किया जाता है।",
+    "demo_jump_in": "डेमो: सीधे इस रूप में प्रवेश करें",
+    "vehicle_reg_number": "वाहन पंजीकरण संख्या",
+    "employee_officer_id": "कर्मचारी / अधिकारी आईडी",
+    "errors": {
+      "valid_mobile": "एक मान्य 10-अंकीय मोबाइल नंबर दर्ज करें",
+      "enter_otp": "4-अंकीय OTP दर्ज करें",
+      "enter_full_name": "अपना पूरा नाम दर्ज करें",
+      "password_min": "पासवर्ड कम से कम 4 अक्षरों का होना चाहिए",
+      "enter_id_field": "अपना {{idLabel}} दर्ज करें"
+    }
+  },
+  "roles": {
+    "farmer": { "label": "किसान", "hint": "स्लॉट बुक करें, अपना पास ट्रैक करें" },
+    "driver": { "label": "ट्रांसपोर्टर", "hint": "लिफ्टिंग कार्यों पर बोली लगाएं" },
+    "inspection-head": { "label": "निरीक्षण प्रमुख", "hint": "गुणवत्ता गेट जांच" },
+    "mandi-head": { "label": "मंडी प्रमुख", "hint": "एक मंडी चलाएं" },
+    "admin": { "label": "एडमिन", "hint": "पूर्ण सिस्टम एक्सेस" }
+  }
+}
