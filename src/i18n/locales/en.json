@@ -88,5 +88,34 @@
     "nav_bookings": "Bookings",
     "nav_track": "Track",
     "nav_profile": "Profile"
+  },
+  "track": {
+  "back": "Back",
+  "live_tracking": "LIVE TRACKING",
+  "loading": "Loading your booking...",
+  "no_booking": "No active booking found. Book a slot first to see live tracking here.",
+  "mandi_gate_pass": "MANDI GATE PASS",
+  "view_qr": "View QR",
+  "gate": "GATE",
+  "weighbridge": "WEIGHBRIDGE",
+  "slot_date": "SLOT DATE",
+  "mins_wait": "Mins Wait",
+  "wave_window": "Wave window",
+  "slots_remaining": "Slots remaining",
+  "queue_position": "Queue position",
+  "procurement_journey": "Procurement Journey",
+  "stage_of": "Stage {{current}} of {{total}}",
+  "in_progress": "IN PROGRESS",
+  "view_assaying_cert": "View Live Assaying Certificate",
+  "call_helpline": "Call Helpline",
+  "return_home": "Return to Home",
+  "stages": {
+    "booked": { "title": "1. Slot Booked", "desc": "Confirmed for your selected wave." },
+    "arrived": { "title": "2. Arrived at Mandi (Gate In)", "desc": "RFID Fast-Scan validated at entry gate." },
+    "quality_check": { "title": "3. Quality Check (Assaying)", "desc": "Sample under assaying review." },
+    "weighed": { "title": "4. Gross Weighing", "desc": "Weighbridge reading in progress." },
+    "receipt_generated": { "title": "5. J-Form Generation", "desc": "Official MSP procurement slip & tax-free record." },
+    "paid": { "title": "6. DBT Payment Disbursal", "desc": "Direct credit to your bank account." }
   }
+}
 }
